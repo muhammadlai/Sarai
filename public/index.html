@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SARA — AI Creator PRO</title>
+<style>
+:root{--bg:#07070b;--card:#111118;--line:#282833;--muted:#9999aa;--pink:#ff4f9a;--violet:#8b5cf6;--green:#45d483}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#171022 0,#07070b 35%),#07070b;color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial}button,input{font:inherit}.app{max-width:1480px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.brand{font-size:29px;font-weight:950;letter-spacing:-1px}.brand span{color:var(--pink)}.sub{color:var(--muted);font-size:12px;margin-top:2px}.status{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.badge{border:1px solid var(--line);background:#101017;border-radius:999px;padding:8px 11px;font-size:12px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#777;margin-right:6px}.ok .dot{background:var(--green);box-shadow:0 0 9px #45d483}.grid{display:grid;grid-template-columns:minmax(420px,600px) 1fr;gap:18px}.card{background:linear-gradient(180deg,#13131b,#0f0f15);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 18px 60px #0006}.avatar{position:relative;overflow:hidden;border-radius:17px;min-height:700px;background:#18131a;display:flex;align-items:center;justify-content:center}.fallback{position:absolute;inset:0;background:#08080d;display:flex;align-items:center;justify-content:center}.fallback img{width:100%;height:100%;object-fit:cover}.did-mount{position:absolute;inset:0;display:flex;align-items:stretch;justify-content:center}.did-mount:empty{display:none}.live{position:absolute;left:13px;top:13px;background:#e32655;padding:7px 10px;border-radius:8px;font-size:11px;font-weight:900;z-index:10}.name{position:absolute;left:15px;bottom:15px;z-index:10;font-size:24px;font-weight:950;text-shadow:0 2px 18px #000}.heroShade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 58%,#000b);z-index:5}.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.btn{border:1px solid #343440;background:#191921;color:#fff;border-radius:12px;padding:11px 14px;cursor:pointer}.primary{border:0;background:linear-gradient(135deg,var(--pink),var(--violet));font-weight:850}.danger{background:#291017;border-color:#57222e}.wide{flex:1}.notice{padding:12px 13px;border:1px solid #2e2e3a;background:#0d0d13;border-radius:13px;color:#c5c5d1;font-size:13px;line-height:1.5;margin-top:12px}.warn{border-color:#5a4525;background:#1c1710}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:13px}.metric{border:1px solid var(--line);border-radius:14px;padding:13px;background:#0d0d13}.metric span{font-size:11px;color:var(--muted)}.metric strong{display:block;margin-top:5px;font-size:16px}.sectionTitle{font-weight:850;margin-bottom:9px}.panel{margin-top:13px}.feed{height:310px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#0a0a0f;padding:10px}.msg{padding:10px;border-bottom:1px solid #22222c;line-height:1.45}.msg b{font-size:12px}.msg p{margin:3px 0 0;color:#d4d4dd}.empty{color:var(--muted);padding:15px}.row{display:flex;gap:9px}.row input{flex:1;background:#0b0b10;border:1px solid #30303a;color:#fff;border-radius:11px;padding:11px}.memories{max-height:180px;overflow:auto;color:#c9c9d4}.mem{padding:7px 0;border-bottom:1px solid #24242d}.setup{font-size:13px;color:#c7c7d1;line-height:1.55}.code{background:#08080d;border:1px solid #262630;border-radius:10px;padding:10px;word-break:break-all;font-family:ui-monospace,SFMono-Regular,monospace;font-size:11px}.small{font-size:11px;color:var(--muted)}.hidden{display:none!important}@media(max-width:1000px){.grid{grid-template-columns:1fr}.avatar{min-height:620px}.metrics{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div><div class="brand">S<span>ARA</span></div><div class="sub">REAL-TIME AI CREATOR • TALKING AVATAR • TIKTOK CONTROL ROOM</div></div>
+    <div class="status"><div class="badge" id="didBadge"><span class="dot"></span>D-ID: checking</div><div class="badge" id="ttBadge"><span class="dot"></span>TikTok: checking</div><div class="badge" id="aiBadge"><span class="dot"></span>AI: checking</div></div>
+  </div>
+  <div class="grid">
+    <section class="card">
+      <div class="avatar" id="avatar">
+        <div class="fallback" id="fallback"><img src="/sara-reference.jpg" alt="SARA reference"></div>
+        <div class="did-mount" id="didMount"></div>
+        <div class="live" id="liveBadge">HOST READY</div><div class="heroShade"></div><div class="name">SARA</div>
+      </div>
+      <div class="controls">
+        <button class="btn primary wide" id="connectDid">Connect SARA</button>
+        <button class="btn" id="startHost">Start Host</button>
+        <button class="btn danger" id="stopHost">Stop</button>
+      </div>
+      <div class="notice" id="mainNotice">D-ID is the real talking-avatar layer. Once your D-ID Agent is configured, SARA's video, lip-sync, voice and realtime conversation happen through WebRTC instead of a fake mouth overlay.</div>
+    </section>
+
+    <section>
+      <div class="metrics"><div class="metric"><span>Avatar</span><strong id="mAvatar">Not connected</strong></div><div class="metric"><span>AI Brain</span><strong id="mAI">Checking</strong></div><div class="metric"><span>TikTok</span><strong id="mTT">Not connected</strong></div><div class="metric"><span>Host</span><strong id="mHost">Offline</strong></div></div>
+
+      <div class="card">
+        <div class="sectionTitle">SARA Live Console</div>
+        <div class="feed" id="feed"><div class="empty">SARA ki conversation yahan appear hogi. D-ID connect karne ke baad real voice/video conversation start ho sakti hai.</div></div>
+        <div class="controls"><button class="btn" id="speakTest">🔊 Test voice</button><button class="btn" id="clearFeed">Clear</button></div>
+      </div>
+
+      <div class="card panel">
+        <div class="sectionTitle">Memory</div>
+        <div class="memories" id="memories">Loading…</div>
+        <div class="controls"><div class="row wide"><input id="memoryInput" placeholder="SARA ko kya yaad rakhna hai?"/><button class="btn primary" id="saveMemory">Save</button></div></div>
+      </div>
+
+      <div class="card panel">
+        <div class="sectionTitle">TikTok</div>
+        <div id="ttText" class="setup">TikTok official OAuth is included. Connect only after your TikTok Developer app has the exact redirect URI and approved scopes.</div>
+        <div class="controls"><button class="btn primary" id="connectTikTok">Connect TikTok</button></div>
+      </div>
+
+      <div class="card panel">
+        <div class="sectionTitle">D-ID setup status</div>
+        <div class="setup" id="setupText">Checking configuration…</div>
+        <div class="code" id="originBox"></div>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id); let cfg=null, didLoaded=false, hostSession=null;
+function add(role,text){const feed=$('feed'); if(feed.querySelector('.empty'))feed.innerHTML=''; const d=document.createElement('div');d.className='msg';d.innerHTML='<b>'+esc(role)+'</b><p>'+esc(text)+'</p>';feed.appendChild(d);feed.scrollTop=feed.scrollHeight;}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+async function api(u,o={}){const r=await fetch(u,{...o,headers:{'Content-Type':'application/json',...(o.headers||{})}});const j=await r.json().catch(()=>({}));if(!r.ok)throw Error(j.error||'Request failed');return j}
+function badge(el,on,text){el.classList.toggle('ok',!!on);el.innerHTML='<span class="dot"></span>'+text;}
+async function boot(){
+  cfg=await api('/api/config');
+  badge($('didBadge'),cfg.did.enabled,cfg.did.enabled?'D-ID: ready':'D-ID: setup needed');
+  badge($('aiBadge'),cfg.openai,'AI: '+(cfg.openai?'ready':'optional backend off'));
+  badge($('ttBadge'),cfg.tiktok,'TikTok: '+(cfg.tiktok?'configured':'setup needed'));
+  $('mAvatar').textContent=cfg.did.enabled?'Ready':'Setup needed'; $('mAI').textContent=cfg.openai?'Ready':'D-ID/Studio'; $('mTT').textContent=cfg.tiktok?'Ready':'Setup needed';
+  $('originBox').textContent='Allowed origin for D-ID client key: '+cfg.appOrigin;
+  $('setupText').innerHTML=cfg.did.enabled?'<b>D-ID connected in config.</b> Click “Connect SARA”.':'<b>1)</b> Create a D-ID Agent using the SARA reference photo. <b>2)</b> Create/retrieve its client key and allow '+esc(cfg.appOrigin)+'. <b>3)</b> Put DID_AGENT_ID and DID_CLIENT_KEY in .env, restart server.';
+  if(cfg.did.enabled) $('mainNotice').textContent='D-ID Agent is configured. Connect SARA to load the REAL WebRTC talking avatar. Your photo is kept here as the local fallback/reference.';
+  await loadMemory(); await tiktokStatus();
+  if(new URLSearchParams(location.search).get('tiktok')==='connected') add('SYSTEM','TikTok OAuth connected successfully.');
+}
+async function loadMemory(){try{const s=await api('/api/memory');$('memories').innerHTML=s.memories?.length?s.memories.slice(-25).map(x=>'<div class="mem">'+esc(x)+'</div>').join(''):'No memories saved yet.';}catch{$('memories').textContent='Memory unavailable.'}}
+async function tiktokStatus(){try{const s=await api('/api/tiktok/status'); if(s.connected){badge($('ttBadge'),true,'TikTok: connected');$('mTT').textContent='Connected';$('ttText').textContent='TikTok account is connected through official OAuth.';}}catch{}}
+async function loadDid(){
+  if(!cfg?.did.enabled){alert('Pehle D-ID Agent ID aur Client Key .env mein add karo.');return;}
+  if(didLoaded)return;
+  didLoaded=true; $('connectDid').textContent='Loading SARA…';
+  const sc=document.createElement('script'); sc.type='module'; sc.src='https://agent.d-id.com/v2/index.js';
+  sc.dataset.mode='full'; sc.dataset.targetId='didMount'; sc.dataset.clientKey=cfg.did.clientKey; sc.dataset.agentId=cfg.did.agentId; sc.dataset.name='did-agent'; sc.dataset.orientation='vertical'; sc.dataset.openMode='expanded'; sc.dataset.autoConnect='true'; sc.dataset.showRestartButton='false'; sc.dataset.showAgentName='false'; sc.dataset.track='false';
+  sc.addEventListener('load',()=>{ $('fallback').classList.add('hidden');$('connectDid').textContent='SARA Connected';$('mAvatar').textContent='Live'; add('SYSTEM','SARA ka real-time avatar load ho gaya.'); });
+  sc.addEventListener('error',()=>{didLoaded=false;$('connectDid').textContent='Connect SARA';alert('D-ID embed load nahi hua. Internet, Agent ID/Client Key aur allowed domain check karo.');});
+  document.head.appendChild(sc);
+}
+$('connectDid').onclick=loadDid;
+$('startHost').onclick=async()=>{try{hostSession=await api('/api/live/session',{method:'POST',body:JSON.stringify({title:'SARA LIVE'})});$('mHost').textContent='Ready';$('liveBadge').textContent='HOST LIVE MODE';add('SYSTEM','Host mode ready. TikTok LIVE transport must be an officially supported route/OBS workflow.');}catch(e){alert(e.message)}};
+$('stopHost').onclick=async()=>{if(hostSession)await api('/api/live/stop',{method:'POST',body:JSON.stringify({id:hostSession.session.id})}).catch(()=>{});hostSession=null;$('mHost').textContent='Offline';$('liveBadge').textContent='HOST READY';};
+$('connectTikTok').onclick=()=>location.href='/auth/tiktok';
+$('saveMemory').onclick=async()=>{const v=$('memoryInput').value.trim();if(!v)return;await api('/api/memory',{method:'POST',body:JSON.stringify({text:v})});$('memoryInput').value='';loadMemory();add('MEMORY','Saved: '+v)};
+$('clearFeed').onclick=()=>{$('feed').innerHTML='<div class="empty">Console cleared.</div>'};
+$('speakTest').onclick=()=>{const t='Assalam-o-alaikum! Main SARA hoon. Main real-time talking avatar ke saath ready hoon. ❤️';if('speechSynthesis'in window){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(t));add('SARA',t)}else alert('Browser speech not available. D-ID voice will work after connection.')};
+boot().catch(e=>{ $('setupText').textContent='Backend not running: '+e.message; });
+</script>
+</body></html>
